@@ -8,8 +8,49 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 # الـ Prompt ID بتاعك
 PROMPT_ID = "pmpt_69b0fd8821a0819584dd64dc7e982545033762b21dcb4523"
 # كود العنوان في النص
-st.markdown("<h1 style='text-align: center;'>Math 2 AI Tutor Tester</h1>", unsafe_allow_html=True)
+# 1. العنوان (من غير ستايل داخلي عشان نتحكم فيه من الـ CSS)
+st.markdown("<h1>Math 2 AI Tutor Tester 🤖</h1>", unsafe_allow_html=True)
 
+# 2. بلوك الـ CSS المتكامل (شامل الموبايل واللاب)
+st.markdown("""
+<style>
+    /* الفونت العام والاتجاه */
+    .stApp { font-family: 'Arial', sans-serif; }
+    
+    [data-testid="stMarkdownContainer"] {
+        direction: rtl !important;
+        text-align: right !important;
+    }
+
+    /* السر هنا: تظبيط مقاس العنوان حسب الشاشة */
+    h1 {
+        text-align: center !important;
+        color: white;
+    }
+
+    /* 📱 للموبايل (شاشة أصغر من 768px) */
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 26px !important; /* صغرنا الخط للموبايل */
+            margin-bottom: 10px;
+        }
+    }
+
+    /* 💻 للاب توب (شاشة أكبر من 768px) */
+    @media (min-width: 769px) {
+        h1 {
+            font-size: 50px !important; /* المقاس الطبيعي للاب */
+        }
+    }
+
+    /* عزل الماث والإنجليزي */
+    code, pre, .katex {
+        direction: ltr !important;
+        unicode-bidi: isolate !important;
+        display: inline-block;
+    }
+</style>
+""", unsafe_allow_html=True)
 # كود الـ CSS لضبط العربي والماث والألوان
 st.markdown("""
 <style>
@@ -91,3 +132,4 @@ if user_input:
 
         except Exception as e:
             st.error(f"حصلت مشكلة: {e}")
+
