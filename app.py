@@ -1,68 +1,49 @@
 import streamlit as st
 from openai import OpenAI
 
-# 🚀 السطر ده بيفرد الصفحة ويخليها تاخد العرض كله (لازم يكون أول أمر لـ Streamlit) 🚀
-st.set_page_config(page_title="Math 2 AI Tutor", layout="wide")
-
 # إعداد الـ API
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # الـ Prompt ID بتاعك
 PROMPT_ID = "pmpt_69b0fd8821a0819584dd64dc7e982545033762b21dcb4523"
 
-# 1. العنوان 
+# 1. العنوان (من غير ستايل داخلي عشان نتحكم فيه من الـ CSS)
 st.markdown("<h1>Math 2 AI Tutor Tester 🤖</h1>", unsafe_allow_html=True)
 
-# 2. بلوك الـ CSS المتكامل (عالجنا فيه عرض الموبايل)
+# 2. بلوك الـ CSS المتكامل (شامل الألوان والماث)
 st.markdown("""
 <style>
     /* الفونت العام والاتجاه */
     .stApp { font-family: 'Arial', sans-serif; }
     
-    /* 📱 السر هنا: إجبار Streamlit ياخد عرض الشاشة كله للموبايل واللاب 📱 */
-    .block-container {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-        padding-top: 2rem !important;
-        max-width: 100% !important;
-    }
-
-    /* تقليل المسافات أكتر لو الشاشة موبايل */
-    @media (max-width: 768px) {
-        .block-container {
-            padding-left: 0.5rem !important;
-            padding-right: 0.5rem !important;
-        }
-    }
-
     /* إجبار الحاوية الأساسية والنصوص إنها تكون من اليمين للشمال */
     [data-testid="stMarkdownContainer"] {
         direction: rtl !important;
         text-align: right !important;
     }
 
-    /* تظبيط المسافات بتاعت النقط والأرقام (عشان متدخلش لجوه أوي) */
+    /* 🟢 السر هنا: تظبيط المسافات بتاعت النقط والأرقام (Lists Fix) 🟢 */
     [data-testid="stMarkdownContainer"] ul, 
     [data-testid="stMarkdownContainer"] ol {
         direction: rtl !important;
         text-align: right !important;
-        padding-left: 0 !important; 
-        padding-right: 1.5rem !important; /* قللناها عشان الموبايل */
+        padding-left: 0 !important; /* بنلغي المسافة الأجنبي اللي على الشمال */
+        padding-right: 2rem !important; /* بنحط المسافة الصح على اليمين */
     }
 
     [data-testid="stMarkdownContainer"] li {
         direction: rtl !important;
         text-align: right !important;
-        margin-bottom: 0.5rem !important; 
+        margin-bottom: 0.5rem !important; /* مسافة خفيفة بين السطور عشان شكلها يبقى أنضف */
     }
 
-    /* 🔵 العناوين والمواضيع باللون اللبني 🔵 */
+    /* 🔵 العناوين والمواضيع (Topics) باللون اللبني 🔵 */
     [data-testid="stMarkdownContainer"] h2, 
     [data-testid="stMarkdownContainer"] h3, 
     [data-testid="stMarkdownContainer"] h4 {
         color: #00bfff !important;
         direction: rtl !important;
-        margin-top: 1.5rem !important; 
+        margin-top: 1.5rem !important; /* مسافة فوق العنوان عشان ميبقاش لازق في اللي قبله */
     }
 
     /* 🟡 الكلام المهم (الـ Bold) باللون الذهبي/الأصفر 🟡 */
@@ -70,7 +51,7 @@ st.markdown("""
         color: #ffd700 !important; 
     }
 
-    /* العنوان الرئيسي للصفحة */
+    /* العنوان الرئيسي للصفحة يفضل أبيض وفي النص */
     h1 { text-align: center !important; color: white; }
     @media (max-width: 768px) { h1 { font-size: 26px !important; margin-bottom: 10px; } }
     @media (min-width: 769px) { h1 { font-size: 50px !important; } }
@@ -98,7 +79,6 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
-
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
