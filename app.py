@@ -10,7 +10,7 @@ PROMPT_ID = "pmpt_69b0fd8821a0819584dd64dc7e982545033762b21dcb4523"
 # 1. العنوان (من غير ستايل داخلي عشان نتحكم فيه من الـ CSS)
 st.markdown("<h1>Math 2 AI Tutor Tester 🤖</h1>", unsafe_allow_html=True)
 
-# 2. بلوك الـ CSS المتكامل (دمجنا الاتنين وظبطنا الماث عشان ييجي في النص)
+# 2. بلوك الـ CSS المتكامل (الحل النهائي للمعادلات)
 st.markdown("""
 <style>
     /* الفونت العام والاتجاه */
@@ -57,18 +57,21 @@ st.markdown("""
         direction: ltr !important;
         unicode-bidi: isolate !important;
         display: inline-block;
+        text-align: left !important;
     }
 
-    /* 🔴 السر الجديد: تظبيط المعادلات (Math) عشان تظهر في النص بالضبط 🔴 */
-    .katex-display {
-        text-align: center !important;
+    /* 🔴 الحل القاضي للمعادلات الكبيرة (Block Math) بالـ Flexbox 🔴 */
+    .katex-display, .math.display, div[data-testid="stMath"] {
+        display: flex !important;
+        justify-content: center !important; /* إجبار في النص */
+        align-items: center !important;
         direction: ltr !important;
-        display: block !important;
-        margin: 1.5em auto !important; /* مسافة فوق وتحت عشان تبروز المعادلة */
+        width: 100% !important;
+        margin: 1.5rem 0 !important;
     }
 
     /* تظبيط المعادلات الصغيرة اللي وسط الكلام (Inline Math) */
-    .katex {
+    span.katex {
         direction: ltr !important;
         unicode-bidi: isolate !important;
     }
