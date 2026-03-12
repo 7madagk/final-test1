@@ -10,13 +10,11 @@ PROMPT_ID = "pmpt_69b0fd8821a0819584dd64dc7e982545033762b21dcb4523"
 # 1. العنوان (من غير ستايل داخلي عشان نتحكم فيه من الـ CSS)
 st.markdown("<h1>Math 2 AI Tutor Tester 🤖</h1>", unsafe_allow_html=True)
 
-# 2. بلوك الـ CSS المتكامل (الحل النهائي للمعادلات)
+# 2. بلوك الـ CSS المتكامل (الحل القاضي للماث والعربي)
 st.markdown("""
 <style>
     /* الفونت العام والاتجاه */
-    .stApp, .stChatMessage, .stChatInput textarea { 
-        font-family: 'Arial', sans-serif; 
-    }
+    .stApp { font-family: 'Arial', sans-serif; }
     
     /* إجبار الحاوية الأساسية والنصوص إنها تكون من اليمين للشمال */
     [data-testid="stMarkdownContainer"] {
@@ -24,62 +22,38 @@ st.markdown("""
         text-align: right !important;
     }
 
-    [data-testid="stMarkdownContainer"] p, 
-    [data-testid="stMarkdownContainer"] ul, 
-    [data-testid="stMarkdownContainer"] ol {
-        direction: rtl !important;
-        text-align: right !important;
-    }
+    /* العنوان */
+    h1 { text-align: center !important; color: white; }
+    @media (max-width: 768px) { h1 { font-size: 26px !important; margin-bottom: 10px; } }
+    @media (min-width: 769px) { h1 { font-size: 50px !important; } }
 
-    /* السر هنا: تظبيط مقاس العنوان حسب الشاشة */
-    h1 {
+    /* 🔴 الحل النهائي لمعادلات KaTeX في Streamlit 🔴 */
+    
+    /* 1. إجبار المعادلات الكبيرة (Block Math) تيجي في النص وتاخد سطر لوحدها */
+    .katex-display {
+        display: block !important;
         text-align: center !important;
-        color: white;
+        direction: ltr !important;
+        width: 100% !important;
+        margin: 1.5rem auto !important;
     }
 
-    /* 📱 للموبايل (شاشة أصغر من 768px) */
-    @media (max-width: 768px) {
-        h1 {
-            font-size: 26px !important;
-            margin-bottom: 10px;
-        }
+    /* 2. حماية المعادلات الصغيرة (Inline Math) من شقلبة الأقواس وسط الكلام العربي */
+    .katex {
+        direction: ltr !important;
+        unicode-bidi: embed !important; 
+        display: inline-block !important;
     }
 
-    /* 💻 للاب توب (شاشة أكبر من 768px) */
-    @media (min-width: 769px) {
-        h1 {
-            font-size: 50px !important;
-        }
-    }
-
-    /* عزل الأكواد البرمجية عشان متتشقلبش */
+    /* عزل الأكواد البرمجية */
     code, pre {
         direction: ltr !important;
-        unicode-bidi: isolate !important;
-        display: inline-block;
+        unicode-bidi: embed !important;
         text-align: left !important;
     }
 
-    /* 🔴 الحل القاضي للمعادلات الكبيرة (Block Math) بالـ Flexbox 🔴 */
-    .katex-display, .math.display, div[data-testid="stMath"] {
-        display: flex !important;
-        justify-content: center !important; /* إجبار في النص */
-        align-items: center !important;
-        direction: ltr !important;
-        width: 100% !important;
-        margin: 1.5rem 0 !important;
-    }
-
-    /* تظبيط المعادلات الصغيرة اللي وسط الكلام (Inline Math) */
-    span.katex {
-        direction: ltr !important;
-        unicode-bidi: isolate !important;
-    }
-
     /* تلوين الكلام المهم (الـ Bold) بلون لبني */
-    strong, b {
-        color: #00bfff !important; 
-    }
+    strong, b { color: #00bfff !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -122,8 +96,6 @@ if user_input:
 
             if total_tokens is not None:
                 st.info(f"Tokens المستخدمة في العملية دي: {total_tokens}")
-            else:
-                st.warning("الـ API مبعتش التوكنز في الاستريم.")
 
         except Exception as e:
             st.error(f"حصلت مشكلة: {e}")
