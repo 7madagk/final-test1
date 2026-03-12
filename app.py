@@ -22,12 +22,28 @@ st.markdown("""
         text-align: right !important;
     }
 
+    /* 🟢 السر هنا: تظبيط المسافات بتاعت النقط والأرقام (Lists Fix) 🟢 */
+    [data-testid="stMarkdownContainer"] ul, 
+    [data-testid="stMarkdownContainer"] ol {
+        direction: rtl !important;
+        text-align: right !important;
+        padding-left: 0 !important; /* بنلغي المسافة الأجنبي اللي على الشمال */
+        padding-right: 2rem !important; /* بنحط المسافة الصح على اليمين */
+    }
+
+    [data-testid="stMarkdownContainer"] li {
+        direction: rtl !important;
+        text-align: right !important;
+        margin-bottom: 0.5rem !important; /* مسافة خفيفة بين السطور عشان شكلها يبقى أنضف */
+    }
+
     /* 🔵 العناوين والمواضيع (Topics) باللون اللبني 🔵 */
     [data-testid="stMarkdownContainer"] h2, 
     [data-testid="stMarkdownContainer"] h3, 
     [data-testid="stMarkdownContainer"] h4 {
         color: #00bfff !important;
         direction: rtl !important;
+        margin-top: 1.5rem !important; /* مسافة فوق العنوان عشان ميبقاش لازق في اللي قبله */
     }
 
     /* 🟡 الكلام المهم (الـ Bold) باللون الذهبي/الأصفر 🟡 */
@@ -63,7 +79,6 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
-
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -106,3 +121,4 @@ if user_input:
 
         except Exception as e:
             st.error(f"حصلت مشكلة: {e}")
+
