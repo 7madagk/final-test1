@@ -5,7 +5,7 @@ from openai import OpenAI
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # الـ Prompt ID بتاعك
-PROMPT_ID = "pmpt_69b0fd8821a0819584dd64dc7e982545033762b21dcb4523"
+PROMPT_ID = "pmpt_69b607524b188193895a2f7d40a0b2980a1e0ce11bc7b539"
 
 # 1. العنوان (من غير ستايل داخلي عشان نتحكم فيه من الـ CSS)
 st.markdown("<h1>Math 2 AI Tutor Tester 🤖</h1>", unsafe_allow_html=True)
